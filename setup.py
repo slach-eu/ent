@@ -20,7 +20,7 @@ with open(path.join(here, 'tests/requirements.txt')) as f:
     tests_requirements = f.read().splitlines()
 
 setup(
-    name='etl',
+    name='etlv',
     version='0.1.0',
     description='Advertising Data ETL-V',
     long_description=long_description,
@@ -28,7 +28,7 @@ setup(
     author='Sebastian Łach',
     author_email='root@slach.eu',
     license='GNU',
-    packages=['etl'],
+    packages=['etlv'],
     install_requires=package_requirements,
     test_suite='nose.collector',
     tests_require=tests_requirements,
@@ -36,7 +36,7 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'etl=etl.scripts.bootstrap:main',
+            'etlv=etlv.scripts.bootstrap:main',
         ],
     },
 )
