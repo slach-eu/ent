@@ -6,6 +6,7 @@ from requests import get
 class AdverityReader(object):
 
     data = None
+    columns = ('Date', 'Datasource', 'Campaign', 'Clicks', 'Impressions')
 
     def __init__(self, url):
         """Construct reader with given URL."""
@@ -18,6 +19,6 @@ class AdverityReader(object):
                 content = get(self.url).text
                 self.data = read_csv(StringIO(content))
             except ValueError as e:
-                return DataFrame()
+                return DataFrame(columns=self.columns)
 
         return self.data

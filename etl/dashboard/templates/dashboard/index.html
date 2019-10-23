@@ -27,35 +27,60 @@
   <body>
 
     <div style="width: 100%; background: #eee;">
-        <div style="height: 100%; width: 30%;">
-            <div style="padding: 12px;">
+      <div style="height: 100%; width: 30%;">
+        <div style="padding: 12px;">
+          <form action="" method="post">
+            {% csrf_token %}
+
             <h3>Datasource</h3>
-            <select id="multiselect-datasource" multiple="multiple">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-                <option value="4">Option 4</option>
-                <option value="5">Option 5</option>
-                <option value="6">Option 6</option>
+            <select id="multiselect-datasource" name="datasources" multiple="multiple">
+              {% for choice in datasources_options %}
+                <option value="{{ choice }}"{% if choice in datasources_values %} selected{% endif %}>
+                  {{ choice }}
+                </option>
+              {% endfor %}
             </select>
+
             <h3>Campaign</h3>
-            <select id="multiselect-campaign" multiple="multiple">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-                <option value="4">Option 4</option>
-                <option value="5">Option 5</option>
-                <option value="6">Option 6</option>
+            <select id="multiselect-campaign" name="campaigns" multiple="multiple">
+              {% for choice in campaigns_options %}
+              <option value="{{ choice }}"{% if choice in campaigns_values %} selected{% endif %}>
+                {{ choice }}
+              </option>
+              {% endfor %}
             </select>
+
             <br/>
-            <button>Apply</button>
-            </div>
+            <input type="submit" value="Apply">
+
+          </form>
         </div>
-        <div style="height: 100%; width: 70%; background: #fff;">
-            <div style="padding: 12px;">
-                <h1>Datasource {{ question }}</h1>
-                <div id="chart" style="height:400px; width:400px; "></div>
-            </div>
+      </div>
+      <div style="height: 100%; width: 70%; background: #fff;">
+        <div style="padding: 12px;">
+              <h1>
+
+                {% if datasources_values %}
+                  Datasource
+                  {% for value in datasources_values %}
+                    {{ value }}{% if forloop.last %};{% endif %}
+                  {% endfor %}
+                {% else %}
+                   All datasources;
+                {% endif %}
+
+                {% if campaigns_values %}
+                  Campaign
+                  {% for value in campaigns_values %}
+                    {{ value }}{% if forloop.last %};{% endif %}
+                  {% endfor %}
+                {% else %}
+                All campaigns;
+                {% endif %}
+
+              </h1>
+              <div id="chart" style="height:400px; width:400px; "></div>
+          </div>
         </div>
     </div>
 
